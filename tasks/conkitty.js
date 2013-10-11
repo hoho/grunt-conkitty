@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(grunt) {
-    var concatizerCompile = require('conkitty');
+    var conkittyCompile = require('conkitty');
 
     grunt.registerMultiTask('conkitty', 'Compile Conkitty templates.', function() {
         this.files.forEach(function(f) {
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
                     grunt.log.writeln('Compiling "' + filepath + '"');
 
                     var src = grunt.file.read(filepath),
-                        compiled = concatizerCompile(src),
+                        compiled = conkittyCompile(src),
                         tplName;
 
                     for (tplName in compiled) {

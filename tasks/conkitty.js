@@ -35,7 +35,7 @@ module.exports = function(grunt) {
                 code = ['if (!$C.tpl) { $C.tpl = {}; }\n'];
 
                 for (tplName in ret) {
-                    code.push('$C.tpl.' + tplName + ' = ' + ret[tplName] + '\n');
+                    code.push("$C.tpl['" + tplName + "'] = " + ret[tplName] + '\n');
                 }
 
                 grunt.file.write(f.dest, code.join('\n'));

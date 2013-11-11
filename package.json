@@ -1,6 +1,6 @@
 {
   "name": "grunt-contrib-conkitty",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Compile Conkitty Templates",
   "directories": {
     "test": "test",

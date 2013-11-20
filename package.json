@@ -1,6 +1,6 @@
 {
   "name": "grunt-contrib-conkitty",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Compile Conkitty Templates",
   "directories": {
     "test": "test",
@@ -14,6 +14,7 @@
     "url": "git://github.com/hoho/grunt-contrib-conkitty.git"
   },
   "keywords": [
+    "gruntplugin",
     "conkitty",
     "templates",
     "compile"

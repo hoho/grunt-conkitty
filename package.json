@@ -1,6 +1,6 @@
 {
-  "name": "grunt-contrib-conkitty",
-  "version": "0.0.8",
+  "name": "grunt-conkitty",
+  "version": "0.1.0",
   "description": "Compile Conkitty Templates",
   "directories": {
     "test": "test",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hoho/grunt-contrib-conkitty.git"
+    "url": "git://github.com/hoho/grunt-conkitty.git"
   },
   "keywords": [
     "gruntplugin",
@@ -22,7 +22,7 @@
   "author": "Marat Abdullin <dakota@brokenpipe.ru>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hoho/grunt-contrib-conkitty/issues"
+    "url": "https://github.com/hoho/grunt-conkitty/issues"
   },
   "dependencies": {
     "conkitty": ">=0.3.0"

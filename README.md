@@ -1,18 +1,18 @@
-grunt-contrib-conkitty
-======================
+grunt-conkitty
+==============
 
 Compile Conkitty Templates
 
 Install:
 
 ```sh
-npm install grunt-contrib-conkitty --save-dev
+npm install grunt-conkitty --save-dev
 ```
 
 Enable:
 
 ```js
-grunt.loadNpmTasks('grunt-contrib-conkitty');
+grunt.loadNpmTasks('grunt-conkitty');
 ```
 
 Use:

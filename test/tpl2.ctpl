@@ -12,12 +12,12 @@ ol_list items arg1
         CALL list (items)
 
 list items
-    EACH (items)
+    EACH ii (items)
         li.item
-            @num CURRENT
+            @num (ii)
             "item: "
             strong
-                CURRENT
+                (ii)
                 "!"
 
 sep

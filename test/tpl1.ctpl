@@ -42,6 +42,6 @@ page title data
                     br
                     (some_var2)
                     br
-                    INSERT (some_var2)
+                    (((some_var2)))
                     br
                     (some_var)

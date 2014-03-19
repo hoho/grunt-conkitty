@@ -12,7 +12,8 @@ module.exports = function(grunt) {
         this.files.forEach(function(f) {
             var ret = {},
                 tplName,
-                code;
+                code,
+                fs = require('fs');
 
             f.src
                 .filter(function(filepath) {
@@ -37,7 +38,7 @@ module.exports = function(grunt) {
                 });
 
             if (Object.keys(ret).length) {
-                code = ['if (!$C.tpl) { $C.tpl = {}; }\n'];
+                code = [fs.readFileSync('./node_modules/conkitty/_common.js', {encoding: 'utf8'}), '\n'];
 
                 for (tplName in ret) {
                     code.push('$C.tpl[\'' + tplName + '\'] = ' + ret[tplName] + '\n');

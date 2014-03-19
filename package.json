@@ -1,35 +1,35 @@
 {
-  "name": "grunt-conkitty",
-  "version": "0.4.4",
-  "description": "Compile Conkitty Templates",
-  "directories": {
-    "test": "test",
-    "tasks": "tasks"
-  },
-  "scripts": {
-    "test": "grunt"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/hoho/grunt-conkitty.git"
-  },
-  "keywords": [
-    "gruntplugin",
-    "conkitty",
-    "templates",
-    "compile"
-  ],
-  "author": "Marat Abdullin <dakota@brokenpipe.ru>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hoho/grunt-conkitty/issues"
-  },
-  "dependencies": {
-    "conkitty": "~0.4.4"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-contrib-clean": "~0.4.0"
-  }
+    "name": "grunt-conkitty",
+    "version": "0.4.5",
+    "description": "Compile Conkitty Templates",
+    "directories": {
+        "test": "test",
+        "tasks": "tasks"
+    },
+    "scripts": {
+        "test": "grunt"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/hoho/grunt-conkitty.git"
+    },
+    "keywords": [
+        "gruntplugin",
+        "conkitty",
+        "templates",
+        "compile"
+    ],
+    "author": "Marat Abdullin <dakota@brokenpipe.ru>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hoho/grunt-conkitty/issues"
+    },
+    "dependencies": {
+        "conkitty": "~0.4.5"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.4",
+        "grunt-contrib-clean": "~0.4.0"
+    }
 }

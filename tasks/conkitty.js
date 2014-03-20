@@ -38,7 +38,7 @@ module.exports = function(grunt) {
                 });
 
             if (Object.keys(ret).length) {
-                code = [fs.readFileSync('./node_modules/conkitty/_common.js', {encoding: 'utf8'}), '\n'];
+                code = [fs.readFileSync(__dirname + '/../node_modules/conkitty/_common.js', {encoding: 'utf8'}), '\n'];
 
                 for (tplName in ret) {
                     code.push('$C.tpl[\'' + tplName + '\'] = ' + ret[tplName] + '\n');

@@ -1,5 +1,4 @@
-grunt-conkitty
-==============
+# grunt-conkitty [![Build Status](https://travis-ci.org/hoho/grunt-conkitty.svg?branch=master)](https://travis-ci.org/hoho/grunt-conkitty)
 
 Compile Conkitty Templates
 

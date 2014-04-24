@@ -5,15 +5,34 @@
 
 'use strict';
 
+
+function zeroPad(cur, max) {
+    var zeros = Math.floor(max / 10),
+        ret = [];
+
+    while (zeros > 0) {
+        zeros = Math.floor(zeros / 10);
+        ret.push('0');
+    }
+
+    ret.push(cur + '');
+    return ret.join('');
+}
+
+
 module.exports = function(grunt) {
-    var conkittyCompile = require('conkitty');
+    var Conkitty = require('conkitty'),
+        path = require('path');
 
     grunt.registerMultiTask('conkitty', 'Compile Conkitty templates.', function() {
         this.files.forEach(function(f) {
-            var ret = {},
-                tplName,
-                code,
-                fs = require('fs');
+            var conkitty = new Conkitty(),
+                dest,
+                data,
+                filesCreated,
+                i,
+                filename,
+                newfilename;
 
             f.src
                 .filter(function(filepath) {
@@ -26,28 +45,44 @@ module.exports = function(grunt) {
                     }
                 })
                 .map(function(filepath) {
-                    grunt.log.writeln('Compiling "' + filepath + '"');
-
-                    var src = grunt.file.read(filepath),
-                        compiled = conkittyCompile(src),
-                        tplName;
-
-                    for (tplName in compiled) {
-                        ret[tplName] = compiled[tplName];
-                    }
+                    grunt.log.writeln('Reading "' + filepath + '"');
+                    conkitty.push(grunt.file.read(filepath), path.dirname(filepath));
                 });
 
-            if (Object.keys(ret).length) {
-                code = [fs.readFileSync(__dirname + '/../node_modules/conkitty/_common.js', {encoding: 'utf8'}), '\n'];
+            grunt.log.writeln('Compiling templates...');
+            conkitty.generate();
+            grunt.log.writeln('Compiled.');
 
-                for (tplName in ret) {
-                    code.push('$C.tpl[\'' + tplName + '\'] = ' + ret[tplName] + '\n');
+            if ((dest = f.dest)) {
+                data = conkitty.getCommonCode();
+                if (data && dest.common) {
+                    grunt.file.write(dest.common, data);
+                    filesCreated = true;
+                    grunt.log.writeln('File "' + dest.common + '" created (common).');
                 }
 
-                grunt.file.write(f.dest, code.join('\n'));
-                grunt.log.writeln('File "' + f.dest + '" created.');
-            } else {
-                grunt.log.warn('No compiled templates.');
+                data = conkitty.getTemplatesCode();
+                if (data && dest.templates) {
+                    grunt.file.write(dest.templates, data);
+                    filesCreated = true;
+                    grunt.log.writeln('File "' + dest.templates + '" created (templates).');
+                }
+
+                if (!filesCreated) {
+                    grunt.log.warn('Neither common nor templates file created.');
+                }
+
+                data = conkitty.getIncludes();
+                if (data && data.length && dest.deps) {
+                    grunt.file.mkdir(dest.deps);
+                    for (i = 0; i < data.length; i++) {
+                        filename = data[i];
+                        newfilename = zeroPad(i + 1, data.length) + '_' + filename.replace(/_/g, '__').replace(/\/|\\/g, '_');
+                        newfilename = path.normalize(path.join(dest.deps, '/' + newfilename));
+                        grunt.file.copy(filename, newfilename);
+                        grunt.log.writeln('File "' + filename + '" copied to "' + newfilename + '" (dependency).');
+                    }
+                }
             }
         });
     });

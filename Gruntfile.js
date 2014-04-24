@@ -6,6 +6,8 @@
 module.exports = function(grunt) {
     'use strict';
 
+    grunt.minimatch = null;
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -19,23 +21,32 @@ module.exports = function(grunt) {
         },
 
         clean: {
-            concatizeTemplates: ['tmp']
+            tmp: ['tmp']
         },
 
         conkitty: {
             ok: {
-                files: {
-                    'tmp/ok': ['test/tpl1.ctpl', 'test/tpl2.ctpl']
+                src: ['test/tpl1.ctpl', 'test/tpl2.ctpl'],
+                dest: {
+                    common: 'tmp/ok.common',
+                    templates: 'tmp/ok',
+                    deps: 'tmp/ok.deps'
                 }
+
             },
             empty: {
-                files: {
-                    'tmp/empty': ['test/tpl3.ctpl']
+                src: ['test/tpl3.ctpl'],
+                dest: {
+                    common: 'tmp/empty.common',
+                    templates: 'tmp/empty'
                 }
             },
             nofile: {
                 src: ['test/tpl1.ctpl', 'this/file/is/not/there', 'test/tpl2.ctpl'],
-                dest: 'tmp/nofile',
+                dest: {
+                    templates: 'tmp/nofile',
+                    deps: 'tmp/nofile.deps'
+                },
                 nonull: true
             }
         }

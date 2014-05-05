@@ -44,9 +44,9 @@ module.exports = function(grunt) {
                         return true;
                     }
                 })
-                .map(function(filepath) {
-                    grunt.log.writeln('Reading "' + filepath + '"');
-                    conkitty.push(grunt.file.read(filepath), path.dirname(filepath));
+                .map(function(filename) {
+                    grunt.log.writeln('Reading "' + filename + '"');
+                    conkitty.push(filename);
                 });
 
             grunt.log.writeln('Compiling templates...');

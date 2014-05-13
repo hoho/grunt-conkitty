@@ -49,11 +49,18 @@ module.exports = function(grunt) {
                     conkitty.push(filename);
                 });
 
+            dest = f.dest;
+
             grunt.log.writeln('Compiling templates...');
-            conkitty.generate();
+            conkitty.generate(
+                dest.templates && dest.sourcemap ?
+                    path.normalize(path.relative(path.dirname(path.resolve(dest.templates)), path.resolve(dest.sourcemap)))
+                    :
+                    undefined
+            );
             grunt.log.writeln('Compiled.');
 
-            if ((dest = f.dest)) {
+            if (dest) {
                 data = conkitty.getCommonCode();
                 if (data && dest.common) {
                     grunt.file.write(dest.common, data);
@@ -66,6 +73,13 @@ module.exports = function(grunt) {
                     grunt.file.write(dest.templates, data);
                     filesCreated = true;
                     grunt.log.writeln('File "' + dest.templates + '" created (templates).');
+                }
+
+                data = conkitty.getSourceMap();
+                if (data && dest.templates && dest.sourcemap) {
+                    grunt.file.write(dest.sourcemap, data);
+                    filesCreated = true;
+                    grunt.log.writeln('File "' + dest.sourcemap + '" created (source map).');
                 }
 
                 if (!filesCreated) {

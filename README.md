@@ -23,7 +23,8 @@ conkitty: {
         dest: {
             common: 'path/to/generated/common.js',
             templates: 'path/to/generated/templates.js',
-            deps: 'path/to/copy/dependencies/to'
+            sourcemap: 'path/to/sourcemap/for/templates.js',
+            deps: 'dir/to/copy/dependencies/to'
         }
     }
 }

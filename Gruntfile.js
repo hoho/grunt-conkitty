@@ -6,8 +6,6 @@
 module.exports = function(grunt) {
     'use strict';
 
-    grunt.minimatch = null;
-
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -30,7 +28,8 @@ module.exports = function(grunt) {
                 dest: {
                     common: 'tmp/ok.common',
                     templates: 'tmp/ok',
-                    deps: 'tmp/ok.deps'
+                    deps: 'tmp/ok.deps',
+                    sourcemap: 'tmp/ok.map'
                 }
 
             },

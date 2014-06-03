@@ -15,8 +15,7 @@ function zeroPad(cur, max) {
         ret.push('0');
     }
 
-    ret.push(cur + '');
-    return ret.join('');
+    return ret.join('') + cur;
 }
 
 
@@ -90,9 +89,12 @@ module.exports = function(grunt) {
                 if (data && data.length && dest.deps) {
                     grunt.file.mkdir(dest.deps);
                     for (i = 0; i < data.length; i++) {
-                        filename = data[i];
-                        newfilename = zeroPad(i + 1, data.length) + '_' + filename.replace(/_/g, '__').replace(/\/|\\/g, '_');
-                        newfilename = path.normalize(path.join(dest.deps, '/' + newfilename));
+                        filename = path.resolve(data[i]);
+
+                        newfilename = zeroPad(i + 1, data.length) + '_' + path.basename(filename);
+                        newfilename = path.normalize(path.join(dest.deps, newfilename));
+
+                        grunt.file.write(newfilename + '_', filename);
                         grunt.file.copy(filename, newfilename);
                         grunt.log.writeln('File "' + filename + '" copied to "' + newfilename + '" (dependency).');
                     }

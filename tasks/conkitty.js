@@ -50,6 +50,20 @@ module.exports = function(grunt) {
 
             dest = f.dest;
 
+            if (dest.libs) {
+                dest.libs.forEach(function(lib) {
+                    if (typeof lib.BASE !== 'string' || !(lib.FILES instanceof Array)) {
+                        throw new Error('`lib.BASE` and `lib.FILES` have to be string and array');
+                    }
+
+                    lib.FILES.forEach(function(filename) {
+                        filename = path.resolve(lib.BASE, filename);
+                        grunt.log.writeln('Reading "' + filename + '"');
+                        conkitty.push(filename);
+                    });
+                });
+            }
+
             grunt.log.writeln('Compiling templates...');
             conkitty.generate(
                 dest.templates && dest.sourcemap ?

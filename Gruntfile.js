@@ -29,7 +29,8 @@ module.exports = function(grunt) {
                     common: 'tmp/ok.common',
                     templates: 'tmp/ok',
                     deps: 'tmp/ok.deps',
-                    sourcemap: 'tmp/ok.map'
+                    sourcemap: 'tmp/ok.map',
+                    libs: [{BASE: './test/lib', FILES: ['lib.ctpl']}]
                 }
 
             },

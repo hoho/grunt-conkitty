@@ -14,7 +14,7 @@ Enable:
 grunt.loadNpmTasks('grunt-conkitty');
 ```
 
-Use:
+Use (you can omit some of settings):
 
 ```js
 conkitty: {
@@ -29,3 +29,29 @@ conkitty: {
     }
 }
 ```
+
+`deps` is a directory to copy declared in templates dependencies to. For
+example, let's assume we have two template files. File `/path/to/file1.ctpl`
+depends from `/path/to/script.js` and file `/another/path/file2.ctpl` depends
+from `/another/path/style.css`. If our settings look like:
+
+```js
+{
+    templates: '/path/to/templates.js',
+    deps: '/path/to/deps/'
+}
+```
+
+Resulting structure in `/path/to` will be:
+
+    /path/to
+        /deps
+            1_script.js
+            1_script.js_
+            2_style.css
+            2_style.css_
+        templates.js
+
+Dependencies are properly ordered, files ending with underscore sign
+(like `1_script.js_` and `2_style.css_` in our example) contain absolute path
+to source.

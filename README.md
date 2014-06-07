@@ -37,14 +37,14 @@ from `/another/path/style.css`. If our settings look like:
 
 ```js
 {
-    templates: '/path/to/templates.js',
-    deps: '/path/to/deps/'
+    templates: '/build/path/templates.js',
+    deps: '/build/path/deps/'
 }
 ```
 
-Resulting structure in `/path/to` will be:
+Resulting structure in `/build/path` will be:
 
-    /path/to
+    /build/path
         /deps
             1_script.js
             1_script.js_

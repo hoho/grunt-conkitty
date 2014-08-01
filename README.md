@@ -55,3 +55,23 @@ Resulting structure in `/build/path` will be:
 Dependencies are properly ordered, files ending with underscore sign
 (like `1_script.js_` and `2_style.css_` in our example) contain absolute path
 to source.
+
+
+#### Exclude concat.js from common file
+
+By default [concat.js](https://github.com/hoho/concat.js) is built in common
+file. You can exclude concat.js from common file:
+
+```js
+conkitty: {
+    compile: {
+        src: ['template1.ctpl', 'template2.ctpl'],
+        dest: {
+            common: {file: 'path/to/generated/common.js', 'concat.js': false},
+            templates: 'path/to/generated/templates.js',
+            sourcemap: 'path/to/sourcemap/for/templates.js',
+            deps: 'dir/to/copy/dependencies/to'
+        }
+    }
+}
+```

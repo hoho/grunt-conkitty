@@ -50,6 +50,17 @@ module.exports = function(grunt) {
 
             dest = f.dest;
 
+            var common,
+                noConcatJS;
+
+            if ((common = dest && dest.common)) {
+                noConcatJS = common['concat.js'] === false;
+                common = common.file || common;
+                if (typeof common !== 'string') {
+                    common = undefined;
+                }
+            }
+
             if (dest.libs) {
                 dest.libs.forEach(function(lib) {
                     if (typeof lib.BASE !== 'string' || !(lib.FILES instanceof Array)) {
@@ -69,16 +80,19 @@ module.exports = function(grunt) {
                 dest.templates && dest.sourcemap ?
                     path.normalize(path.relative(path.dirname(path.resolve(dest.templates)), path.resolve(dest.sourcemap)))
                     :
-                    undefined
+                    undefined,
+                noConcatJS
             );
             grunt.log.writeln('Compiled.');
 
             if (dest) {
-                data = conkitty.getCommonCode();
-                if (data && dest.common) {
-                    grunt.file.write(dest.common, data);
-                    filesCreated = true;
-                    grunt.log.writeln('File "' + dest.common + '" created (common).');
+                if (common) {
+                    data = conkitty.getCommonCode();
+                    if (data) {
+                        grunt.file.write(common, data);
+                        filesCreated = true;
+                        grunt.log.writeln('File "' + common + '" created (common).');
+                    }
                 }
 
                 data = conkitty.getTemplatesCode();

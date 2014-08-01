@@ -34,6 +34,17 @@ module.exports = function(grunt) {
                 }
 
             },
+            ok2: {
+                src: ['test/tpl1.ctpl', 'test/tpl2.ctpl'],
+                dest: {
+                    common: {file: 'tmp/ok2.common', 'concat.js': false},
+                    templates: 'tmp/ok2',
+                    deps: 'tmp/ok2.deps',
+                    sourcemap: 'tmp/ok2.map',
+                    libs: [{BASE: './test/lib', FILES: ['lib.ctpl']}]
+                }
+
+            },
             empty: {
                 src: ['test/tpl3.ctpl'],
                 dest: {

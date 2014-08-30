@@ -25,8 +25,8 @@ module.exports = function(grunt) {
 
     grunt.registerMultiTask('conkitty', 'Compile Conkitty templates.', function() {
         this.files.forEach(function(f) {
-            var conkitty = new Conkitty(),
-                dest,
+            var dest = f.dest,
+                conkitty = new Conkitty(dest && dest.env),
                 data,
                 filesCreated,
                 i,
@@ -47,8 +47,6 @@ module.exports = function(grunt) {
                     grunt.log.writeln('Reading "' + filename + '"');
                     conkitty.push(filename);
                 });
-
-            dest = f.dest;
 
             var common,
                 noConcatJS;

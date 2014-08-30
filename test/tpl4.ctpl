@@ -1,0 +1,4 @@
+template|('-suffix' + prop1)|
+    &|('"style.' + prop2 + '.css"')|
+    p|(prop3 ? '.class1' : '')|
+        "Hello"

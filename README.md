@@ -57,7 +57,7 @@ Dependencies are properly ordered, files ending with underscore sign
 to source.
 
 
-#### Exclude concat.js from common file
+## Exclude concat.js from common file
 
 By default [concat.js](https://github.com/hoho/concat.js) is built in common
 file. You can exclude concat.js from common file:
@@ -71,6 +71,24 @@ conkitty: {
             templates: 'path/to/generated/templates.js',
             sourcemap: 'path/to/sourcemap/for/templates.js',
             deps: 'dir/to/copy/dependencies/to'
+        }
+    }
+}
+```
+
+## Passing environment object for precompile expressions
+
+You can pass environment object for
+[precompile expressions](https://github.com/hoho/conkitty#precompile-expressions):
+
+```js
+conkitty: {
+    compile: {
+        src: ['template1.ctpl', 'template2.ctpl'],
+        dest: {
+            env: {prop1: 111, prop2: 'dark', prop3: true},
+            common: 'path/to/generated/common.js',
+            templates: 'path/to/generated/templates.js'
         }
     }
 }

@@ -59,6 +59,14 @@ module.exports = function(grunt) {
                     deps: 'tmp/nofile.deps'
                 },
                 nonull: true
+            },
+            precompileExpr: {
+                src: ['test/tpl4.ctpl'],
+                dest: {
+                    env: {prop1: 111, prop2: 'dark', prop3: true},
+                    templates: 'tmp/pce',
+                    deps: 'tmp/pce.deps'
+                }
             }
         }
     });

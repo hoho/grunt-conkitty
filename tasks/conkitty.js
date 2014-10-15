@@ -31,7 +31,8 @@ module.exports = function(grunt) {
                 filesCreated,
                 i,
                 filename,
-                newfilename;
+                newfilename,
+                fileCount = 0;
 
             f.src
                 .filter(function(filepath) {
@@ -44,8 +45,9 @@ module.exports = function(grunt) {
                     }
                 })
                 .map(function(filename) {
-                    grunt.log.writeln('Reading "' + filename + '"');
+                    grunt.log.debug('Reading "' + filename + '"');
                     conkitty.push(filename);
+                    fileCount++;
                 });
 
             var common,
@@ -67,13 +69,13 @@ module.exports = function(grunt) {
 
                     lib.FILES.forEach(function(filename) {
                         filename = path.resolve(lib.BASE, filename);
-                        grunt.log.writeln('Reading "' + filename + '"');
+                        grunt.log.debug('Reading "' + filename + '"');
                         conkitty.push(filename);
                     });
                 });
             }
 
-            grunt.log.writeln('Compiling templates...');
+            grunt.log.debug('Compiling templates...');
             conkitty.generate(
                 dest.templates && dest.sourcemap ?
                     path.normalize(path.relative(path.dirname(path.resolve(dest.templates)), path.resolve(dest.sourcemap)))
@@ -81,7 +83,9 @@ module.exports = function(grunt) {
                     undefined,
                 noConcatJS
             );
-            grunt.log.writeln('Compiled.');
+
+            var tplCount = conkitty.code.length;
+            grunt.log.ok('%s file%s compiled, %s template%s processed.', fileCount, fileCount === 1 ? '' : 's', tplCount, tplCount === 1 ? '' : 's');
 
             if (dest) {
                 if (common) {
@@ -89,7 +93,7 @@ module.exports = function(grunt) {
                     if (data) {
                         grunt.file.write(common, data);
                         filesCreated = true;
-                        grunt.log.writeln('File "' + common + '" created (common).');
+                        grunt.log.debug('File "' + common + '" created (common).');
                     }
                 }
 
@@ -97,14 +101,14 @@ module.exports = function(grunt) {
                 if (data && dest.templates) {
                     grunt.file.write(dest.templates, data);
                     filesCreated = true;
-                    grunt.log.writeln('File "' + dest.templates + '" created (templates).');
+                    grunt.log.debug('File "' + dest.templates + '" created (templates).');
                 }
 
                 data = conkitty.getSourceMap();
                 if (data && dest.templates && dest.sourcemap) {
                     grunt.file.write(dest.sourcemap, data);
                     filesCreated = true;
-                    grunt.log.writeln('File "' + dest.sourcemap + '" created (source map).');
+                    grunt.log.debug('File "' + dest.sourcemap + '" created (source map).');
                 }
 
                 if (!filesCreated) {
@@ -148,13 +152,13 @@ module.exports = function(grunt) {
 
                             grunt.file.write(newfilename + '_', filename);
                             grunt.file.copy(filename, newfilename);
-                            grunt.log.writeln('File "' + filename + '" copied to "' + newfilename + '" (dependency).');
+                            grunt.log.debug('File "' + filename + '" copied to "' + newfilename + '" (dependency).');
                         }
                     }
 
                     if (depsFile) {
                         grunt.file.write(depsFile, JSON.stringify(data, undefined, 4));
-                        grunt.log.writeln('File "' + depsFile + '" (dependences list).');
+                        grunt.log.debug('File "' + depsFile + '" (dependences list).');
                     }
                 }
             }

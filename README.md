@@ -79,10 +79,10 @@ the following contents:
 ```
 
 
-## Exclude concat.js from the commons file
+## Exclude concat.js from the common
 
 By default [concat.js](https://github.com/hoho/concat.js) is built in the
-commons file. You can exclude concat.js from the commons file:
+common. You can exclude concat.js from the common:
 
 ```js
 conkitty: {

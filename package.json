@@ -1,6 +1,6 @@
 {
     "name": "grunt-conkitty",
-    "version": "0.5.15",
+    "version": "0.5.16",
     "description": "Compile Conkitty Templates",
     "directories": {
         "test": "test",
@@ -25,7 +25,7 @@
         "url": "https://github.com/hoho/grunt-conkitty/issues"
     },
     "dependencies": {
-        "conkitty": "~0.5.14"
+        "conkitty": "~0.5.16"
     },
     "devDependencies": {
         "grunt": "~0.4.5",

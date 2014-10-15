@@ -62,7 +62,7 @@ module.exports = function(grunt) {
             if (dest.libs) {
                 dest.libs.forEach(function(lib) {
                     if (typeof lib.BASE !== 'string' || !(lib.FILES instanceof Array)) {
-                        throw new Error('`lib.BASE` and `lib.FILES` have to be string and array');
+                        throw new Error('`lib.BASE` and `lib.FILES` have to be a string and an array');
                     }
 
                     lib.FILES.forEach(function(filename) {
@@ -113,16 +113,48 @@ module.exports = function(grunt) {
 
                 data = conkitty.getIncludes();
                 if (data && data.length && dest.deps) {
-                    grunt.file.mkdir(dest.deps);
-                    for (i = 0; i < data.length; i++) {
-                        filename = path.resolve(data[i]);
+                    var depsDest,
+                        depsFile;
 
-                        newfilename = zeroPad(i + 1, data.length) + '_' + path.basename(filename);
-                        newfilename = path.normalize(path.join(dest.deps, newfilename));
+                    if (typeof dest.deps === 'string') {
+                        depsDest = dest.deps;
+                    } else {
+                        if (dest.deps.dest) {
+                            if (typeof dest.deps.dest !== 'string') {
+                                throw new Error('`deps.dest` have to be a string');
+                            }
+                            depsDest = dest.deps.dest;
+                        }
 
-                        grunt.file.write(newfilename + '_', filename);
-                        grunt.file.copy(filename, newfilename);
-                        grunt.log.writeln('File "' + filename + '" copied to "' + newfilename + '" (dependency).');
+                        if (dest.deps.file) {
+                            if (typeof dest.deps.file !== 'string') {
+                                throw new Error('`deps.file` have to be a string');
+                            }
+                            depsFile = dest.deps.file;
+                        }
+                    }
+
+                    if (!depsDest && !depsFile) {
+                        throw new Error('`deps` have to be a string or an object like `{dest: ..., file: ...}`');
+                    }
+
+                    if (depsDest) {
+                        grunt.file.mkdir(depsDest);
+                        for (i = 0; i < data.length; i++) {
+                            filename = path.resolve(data[i]);
+
+                            newfilename = zeroPad(i + 1, data.length) + '_' + path.basename(filename);
+                            newfilename = path.normalize(path.join(depsDest, newfilename));
+
+                            grunt.file.write(newfilename + '_', filename);
+                            grunt.file.copy(filename, newfilename);
+                            grunt.log.writeln('File "' + filename + '" copied to "' + newfilename + '" (dependency).');
+                        }
+                    }
+
+                    if (depsFile) {
+                        grunt.file.write(depsFile, JSON.stringify(data, undefined, 4));
+                        grunt.log.writeln('File "' + depsFile + '" (dependences list).');
                     }
                 }
             }

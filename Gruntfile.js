@@ -67,6 +67,18 @@ module.exports = function(grunt) {
                     templates: 'tmp/pce',
                     deps: 'tmp/pce.deps'
                 }
+            },
+            depslist: {
+                src: ['test/tpl1.ctpl', 'test/tpl2.ctpl'],
+                dest: {
+                    templates: 'tmp/depslist',
+                    deps: {
+                        dest: 'tmp/depslist.deps',
+                        file: 'tmp/depslist.json'
+                    },
+                    libs: [{BASE: './test/lib', FILES: ['lib.ctpl']}]
+                }
+
             }
         }
     });

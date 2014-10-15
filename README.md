@@ -42,7 +42,7 @@ from `/another/path/style.css`. If our settings look like:
 }
 ```
 
-Resulting structure in `/build/path` will be:
+The resulting structure in `/build/path` will be:
 
     /build/path
         /deps
@@ -52,15 +52,37 @@ Resulting structure in `/build/path` will be:
             2_style.css_
         templates.js
 
-Dependencies are properly ordered, files ending with underscore sign
-(like `1_script.js_` and `2_style.css_` in our example) contain absolute path
-to source.
+The dependencies are properly ordered, the files ending with underscore sign
+(`1_script.js_` and `2_style.css_` in our example) contain an absolute path
+to the source.
+
+You can also save your dependencies as a JSON-file:
+
+```js
+{
+    templates: '/build/path/templates.js',
+    deps: {
+        dest: '/build/path/deps/', // Path to copy the files to, the same to the example above.
+        file: '/build/path/deps.json' // Path to JSON-file.
+    }
+}
+```
+
+In addition to previous example result, this one will create `deps.json` with
+the following contents:
+ 
+```js
+[
+    "/path/to/script.js",
+    "/path/to/style.css"
+]
+```
 
 
-## Exclude concat.js from common file
+## Exclude concat.js from the commons file
 
-By default [concat.js](https://github.com/hoho/concat.js) is built in common
-file. You can exclude concat.js from common file:
+By default [concat.js](https://github.com/hoho/concat.js) is built in the
+commons file. You can exclude concat.js from the commons file:
 
 ```js
 conkitty: {
@@ -76,9 +98,9 @@ conkitty: {
 }
 ```
 
-## Passing environment object for precompile expressions
+## Passing an environment object for precompile expressions
 
-You can pass environment object for
+You can pass an environment object for
 [precompile expressions](https://github.com/hoho/conkitty#precompile-expressions):
 
 ```js

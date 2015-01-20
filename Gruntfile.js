@@ -1,6 +1,6 @@
 /*!
  * grunt-conkitty, https://github.com/hoho/grunt-conkitty
- * (c) 2013 Marat Abdullin, MIT license
+ * (c) 2013-2015 Marat Abdullin, MIT license
  */
 
 module.exports = function(grunt) {
